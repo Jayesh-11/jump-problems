@@ -2,7 +2,7 @@
  * Two Sum - https://leetcode.com/problems/two-sum
  */
 
-const testCases = require("./tests/two_sum.test_cases.json");
+const testCases = require("./two_sum.test_cases.json");
 
 /**
  * @param {number[]} nums
@@ -22,7 +22,7 @@ class TestRunner {
 
   test(testCase, target) {
     const result = twoSum(testCase, target);
-    const resultSum = result[0] + result[1];
+    const resultSum = testCase[result[0]] + testCase[result[1]];
 
     if (result[0] === result[1]) {
       throw new Error(
