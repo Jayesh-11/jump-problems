@@ -1,9 +1,10 @@
 class TestRunner {
-  constructor(testCases, test) {
+  constructor(testCases, test, solution) {
     this.passed = 0;
     this.failed = 0;
     this.testCases = testCases;
     this.test = test;
+    this.solution = solution;
   }
 
   run() {
@@ -12,7 +13,7 @@ class TestRunner {
 
     this.testCases.forEach((testCase, idx) => {
       try {
-        const result = this.test(testCase);
+        const result = this.test(testCase, this.solution);
         if (result === true) {
           this.passed++;
           console.log(`Test ${idx + 1} passed`);
