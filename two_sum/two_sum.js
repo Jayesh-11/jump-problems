@@ -1,8 +1,7 @@
-/**
- * Two Sum - https://leetcode.com/problems/two-sum
- */
+//  Two Sum - https://leetcode.com/problems/two-sum
 
 const testCases = require("./two_sum.test_cases.json");
+const TestRunner = require("./test_runner.js");
 
 /**
  * @param {number[]} nums
@@ -10,60 +9,51 @@ const testCases = require("./two_sum.test_cases.json");
  * @return {number[]}
  */
 const twoSum = function (nums, target) {
+  const numMap = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    if (numMap.has(complement)) {
+      return [numMap.get(complement), i];
+    }
+    numMap.set(nums[i], i);
+  }
   return [];
 };
 
-class TestRunner {
-  constructor() {
-    this.passed = 0;
-    this.failed = 0;
-    this.testCases = testCases;
-  }
+/**
+ * Test function for two sum
+ * @param {Object} test - Test case
+ * @param {number[]} test.case - Test case array
+ * @param {number} test.target - Test case target
+ * @returns {boolean|void} - True if test passed, false otherwise
+ */
+const test = (test) => {
+  const testCase = test.case;
+  const target = test.target;
+  const result = twoSum(testCase, target);
+  const resultSum = testCase[result[0]] + testCase[result[1]];
 
-  test(testCase, target) {
-    const result = twoSum(testCase, target);
-    const resultSum = testCase[result[0]] + testCase[result[1]];
-
-    if (result[0] === result[1]) {
-      throw new Error(
-        `Result is not correct: expected two different indices but got the same index`
-      );
-    }
-
-    if (resultSum !== target) {
-      throw new Error(
-        `Result is not correct: expected ${target} but got ${resultSum}`
-      );
-    }
-  }
-
-  run() {
-    console.log("\nRunning Two Sum Tests...\n");
-    console.log("=".repeat(70));
-
-    this.testCases.forEach((test, idx) => {
-      try {
-        this.test(test.case, test.target);
-        this.passed++;
-        console.log(`Test ${idx + 1} passed`);
-      } catch (error) {
-        this.failed++;
-        console.log(`Test ${idx + 1} failed`);
-        console.log(`   Error: ${error.message}\n`);
-      }
-    });
-
-    console.log("=".repeat(70));
-    console.log(
-      `\nResults: ${this.passed} passed, ${this.failed} failed, ${this.testCases.length} total\n`
+  if (result[0] === result[1]) {
+    throw new Error(
+      `Result is not correct: expected two different indices but got the same index`
     );
-
-    if (this.failed === 0) {
-      console.log("All tests passed!\n");
-    }
   }
-}
 
-const runner = new TestRunner();
+  if (resultSum !== target) {
+    throw new Error(
+      `Result is not correct: expected ${target} but got ${resultSum}`
+    );
+  }
+
+  if (resultSum === target) {
+    return true;
+  }
+
+  throw new Error(
+    `Result is not correct: expected ${target} but got ${resultSum}`
+  );
+};
+
+const runner = new TestRunner(testCases, test);
 
 runner.run();
