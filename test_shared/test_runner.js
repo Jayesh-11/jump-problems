@@ -1,5 +1,6 @@
 class TestRunner {
-  constructor(testCases, test, solution) {
+  constructor(problemName, testCases, test, solution) {
+    this.problemName = problemName;
     this.passed = 0;
     this.failed = 0;
     this.testCases = testCases;
@@ -8,7 +9,7 @@ class TestRunner {
   }
 
   run() {
-    console.log("\nRunning Two Sum Tests...\n");
+    console.log(`\nRunning Tests for: ${this.problemName}\n`);
     console.log("=".repeat(70));
 
     this.testCases.forEach((testCase, idx) => {

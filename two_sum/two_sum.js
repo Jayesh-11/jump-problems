@@ -19,9 +19,9 @@ const twoSum = function (nums, target) {
  * @param {number} test.target - Test case target
  * @returns {boolean|void} - True if test passed, void otherwise
  */
-const test = (test, solution) => {
-  const testCase = test.case;
-  const target = test.target;
+const test = (testCaseInstance, solution) => {
+  const testCase = testCaseInstance.case;
+  const target = testCaseInstance.target;
   const result = solution(testCase, target);
   const resultSum = testCase[result[0]] + testCase[result[1]];
 
@@ -46,6 +46,6 @@ const test = (test, solution) => {
   );
 };
 
-const runner = new TestRunner(testCases, test, twoSum);
+const runner = new TestRunner("Two Sum", testCases, test, twoSum);
 
 runner.run();
