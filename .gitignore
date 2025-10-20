@@ -34,3 +34,7 @@ go.work.sum
 .DS_Store
 
 # ignore binaries in jump-problems
+
+
+# rust setup
+rust_setup/target/
